@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TasksComponent } from '../../tasks/tasks.component';
+import { TaskDashboardComponent } from '../../task/task-dashboard/task-dashboard.component';
 declare const bootstrap: any;
 
 @Component({
@@ -8,13 +8,13 @@ declare const bootstrap: any;
   styleUrl: './create-task.component.css',
 })
 export class CreateTaskComponent {
-  @Input() tasksComponent!: TasksComponent;
+  @Input() taskDashboardComponent!: TaskDashboardComponent;
 
   description: string = '';
 
   saveTask() {
     const createTaskModal = bootstrap.Modal.getInstance(document.getElementById('create-task-container'));
-    this.tasksComponent.tasks.push({ description: this.description });
+    this.taskDashboardComponent.tasks.push({ description: this.description });
     createTaskModal.hide();
   }
 }
