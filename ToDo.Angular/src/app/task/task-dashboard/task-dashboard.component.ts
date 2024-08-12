@@ -1,5 +1,6 @@
 import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { CreateTaskComponent } from '../../task/create-task/create-task.component';
+import { faPlus, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 declare const bootstrap: any;
 
 @Component({
@@ -10,6 +11,8 @@ declare const bootstrap: any;
 export class TaskDashboardComponent {
   @ViewChild('container', { read: ViewContainerRef }) container!: ViewContainerRef;
   tasks: Array<TaskLineItem> = [];
+  faPlus: IconDefinition = faPlus;
+  faTrash: IconDefinition = faTrash;
 
   removeTask(index: number) {
     this.tasks.splice(index, 1);

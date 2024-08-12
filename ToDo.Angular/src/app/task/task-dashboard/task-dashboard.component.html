@@ -5,7 +5,9 @@
     </div>
     <div class="card-body">
       <div class="d-flex mb-3">
-        <button class="btn btn-sm btn-primary ms-auto" (click)="addTask()">Add</button>
+        <button class="btn btn-sm btn-primary ms-auto" (click)="addTask()">
+          <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
       </div>
       @if(tasks.length > 0)
       {
@@ -24,7 +26,9 @@
               <td>{{i + 1}}</td>
               <td>{{task.description}}</td>
               <td>
-                <button (click)="removeTask(i)" class="btn btn-sm btn-danger">Delete</button>
+                <button (click)="removeTask(i)" class="btn btn-sm btn-danger">
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
               </td>
             </tr>
             }

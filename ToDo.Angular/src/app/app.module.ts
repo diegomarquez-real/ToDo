@@ -3,9 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CreateTaskComponent } from './task/create-task/create-task.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
+
 import { TaskDashboardComponent } from './task/task-dashboard/task-dashboard.component';
+import { CreateTaskComponent } from './task/create-task/create-task.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { TaskDashboardComponent } from './task/task-dashboard/task-dashboard.com
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
