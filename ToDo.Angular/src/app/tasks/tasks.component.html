@@ -1,0 +1,30 @@
+<div id="tasks-container" class="w-100">
+    <div class="card text-bg-dark">
+      <div class="card-header">
+        <span class="h3">To Do List</span>
+      </div>
+      <div class="card-body">
+        <table class="table table-secondary w-100 mb-0">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Description</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              @for(task of tasks; track task; let i = $index)
+              {
+                <td>{{i + 1}}</td>
+                <td>{{task.description}}</td>
+                <td>
+                  <button (click)="removeTask(i)" class="btn btn-sm btn-danger">Delete</button>
+                </td>
+              }
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>
