@@ -4,7 +4,10 @@
         <span class="h3">To Do List</span>
       </div>
       <div class="card-body">
-        <table class="table table-secondary w-100 mb-0">
+        <div class="d-flex mb-3">
+          <button class="btn btn-sm btn-primary ms-auto" (click)="addTask()">Add</button>
+        </div>
+        <table id="task-table" class="table table-secondary w-100 mb-0">
           <thead>
             <tr>
               <th scope="col"></th>
@@ -13,18 +16,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
               @for(task of tasks; track task; let i = $index)
               {
-                <td>{{i + 1}}</td>
-                <td>{{task.description}}</td>
-                <td>
-                  <button (click)="removeTask(i)" class="btn btn-sm btn-danger">Delete</button>
-                </td>
+                <tr>
+                  <td>{{i + 1}}</td>
+                  <td>{{task.description}}</td>
+                  <td>
+                    <button (click)="removeTask(i)" class="btn btn-sm btn-danger">Delete</button>
+                  </td>
+                </tr>
               }
-            </tr>
           </tbody>
         </table>
       </div>
     </div>
+
+    <ng-container #container></ng-container>
 </div>
