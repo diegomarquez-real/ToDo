@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
       <div class="d-flex mb-3">
-        <button class="btn btn-sm btn-primary ms-auto" (click)="addTask()">
+        <button class="btn btn-sm btn-primary ms-auto" (click)="addTask()" title="Add Task">
           <fa-icon [icon]="faPlus"></fa-icon>
         </button>
       </div>
@@ -22,15 +22,15 @@
           <tbody>
             @for(task of tasks; track task; let i = $index)
             {
-            <tr>
-              <td>{{i + 1}}</td>
-              <td>{{task.description}}</td>
-              <td>
-                <button (click)="removeTask(i)" class="btn btn-sm btn-danger">
-                  <fa-icon [icon]="faTrash"></fa-icon>
-                </button>
-              </td>
-            </tr>
+              <tr>
+                <td>{{i + 1}}</td>
+                <td>{{task.description}}</td>
+                <td>
+                  <button (click)="removeTask(i)" class="btn btn-sm btn-danger" title="Remove Task">
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                  </button>
+                </td>
+              </tr>
             }
           </tbody>
         </table>
