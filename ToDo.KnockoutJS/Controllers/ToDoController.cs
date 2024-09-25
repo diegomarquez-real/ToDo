@@ -3,18 +3,20 @@
 namespace ToDo.KnockoutJS.Controllers
 {
     public class ToDoController : Controller
-    { 
-        private readonly string[] _toDos = new string[] { "To Do 1", "To Do 2", "To Do 3" };
+    {
+        private readonly Business.Services.Abstractions.ITaskService _taskService;
 
-        public ToDoController()
+        public ToDoController(Business.Services.Abstractions.ITaskService taskService)
         {
-            
+            _taskService = taskService;
         }
 
         [HttpGet]
-        public JsonResult GetAll()
+        public async Task<JsonResult> GetAllAsync()
         {
-            return Json(_toDos);
+            var taskModels = await _taskService.GetTasksAsync();
+
+            return Json(taskModels);
         }
     }
 }

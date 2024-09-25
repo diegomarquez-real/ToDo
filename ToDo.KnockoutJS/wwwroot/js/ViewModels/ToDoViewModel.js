@@ -1,5 +1,8 @@
 ﻿var ToDoViewModel = {
-    toDos: ko.observableArray([])
+    tasks: ko.observableArray([]),
+    addTask: function () {
+        console.log('add task');
+    }
 };
 
 $(function () {
@@ -29,7 +32,7 @@ $(function () {
                 id: i + 1,
                 description: items[i]
             };
-            ToDoViewModel.toDos.push(item);
+            ToDoViewModel.tasks.push(item);
         }
     }
 });
