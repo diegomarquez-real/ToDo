@@ -15,11 +15,11 @@
             },
             success: function (response) {
                 var item = {
-                    itemId: toDoVM.tasks().length + 1,
                     taskId: response,
                     description: self.description
                 };
                 toDoVM.tasks.push(item);
+                $('#modal-placeholder').find('.modal').modal('hide');
             },
             error: function (jqXHR, textStatus, errorThrown) {
             },

@@ -16,10 +16,9 @@
             success: function (response) {
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log(errorThrown)
             },
             complete: function () {
-                self.tasks(self.tasks.splice(index, index));
+                self.tasks.splice(index, 1);
             }
         });
     }
