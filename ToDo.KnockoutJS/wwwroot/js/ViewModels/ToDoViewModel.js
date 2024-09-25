@@ -1,13 +1,17 @@
 ﻿var ToDoViewModel = {
     tasks: ko.observableArray([]),
-    addTask: function () {
-        console.log('add task');
+    isEmpty: ko.observable(true),
+    addTask: function (modalPlaceholder) {
+        $.get("/Task/AddEditTask", function (data) {
+            modalPlaceholder.html(data);
+            modalPlaceholder.find('#addedit-task-modal').modal('show');
+        });
     }
 };
 
 $(function () {
     $.ajax({
-        url: '/ToDo/GetAll',
+        url: '/Task/GetAll',
         type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -16,7 +20,10 @@ $(function () {
         },
         success: function (response) {
             LoadToDos(response);
-            ko.applyBindings(ToDoViewModel);
+            if (response.length > 0) {
+                ToDoViewModel.isEmpty(false);
+            }
+            ko.applyBindings(ToDoViewModel, $('#task-container')[0]);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log('Error');
@@ -29,8 +36,8 @@ $(function () {
     function LoadToDos(items) {
         for (var i = 0; i < items.length; i++) {
             let item = {
-                id: i + 1,
-                description: items[i]
+                taskId: items[i].taskId,
+                description: items[i].description
             };
             ToDoViewModel.tasks.push(item);
         }

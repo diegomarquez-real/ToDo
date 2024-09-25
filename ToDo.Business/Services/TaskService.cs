@@ -24,6 +24,7 @@ namespace ToDo.Business.Services
         {
             var task = _mapper.Map<Data.Models.Task>(createTaskModel);
             var result = await _toDoContext.Tasks.AddAsync(task);
+            await _toDoContext.SaveChangesAsync();
 
             return result.Entity.TaskId;
         }
