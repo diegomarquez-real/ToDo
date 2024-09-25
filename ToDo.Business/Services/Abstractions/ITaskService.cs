@@ -10,5 +10,6 @@ namespace ToDo.Business.Services.Abstractions
     {
         Task<IEnumerable<Models.TaskModel>> GetTasksAsync();
         Task<int> CreateTaskAsync(Models.Create.CreateTaskModel createTaskModel);
+        Task DeleteTaskAsync(int taskId);
     }
 }

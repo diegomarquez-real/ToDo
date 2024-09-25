@@ -1,6 +1,7 @@
-﻿var AddEditTaskViewModel = {
-    description: ko.observable(),
-    saveTask: function () {
+﻿var AddEditTaskViewModel = function () {
+    var self = this;
+    self.description = ko.observable(),
+    self.saveTask = function () {
         var createTaskModelJSON = {
             Description: this.description()
         };
@@ -11,21 +12,25 @@
             contentType: 'application/json',
             data: JSON.stringify(createTaskModelJSON),
             beforeSend: function () {
-                console.log('Sending request...');
             },
             success: function (response) {
-                console.log(response);
+                var item = {
+                    itemId: toDoVM.tasks().length + 1,
+                    taskId: response,
+                    description: self.description
+                };
+                toDoVM.tasks.push(item);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log('Error');
             },
             complete: function () {
-                console.log('Request completed.');
             }
         });
     }
 };
 
+var addEditTaskVM = new AddEditTaskViewModel();
+
 $(function () {
-    ko.applyBindings(AddEditTaskViewModel, $('#addedit-task-modal')[0]);
+    ko.applyBindings(addEditTaskVM, $('#addedit-task-modal')[0]);
 });

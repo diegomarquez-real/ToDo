@@ -20,6 +20,13 @@ namespace ToDo.Business.Services
             _toDoContext = toDoContext;
         }
 
+        public async Task<IEnumerable<Models.TaskModel>> GetTasksAsync()
+        {
+            var tasks = await _toDoContext.Tasks.ToListAsync();
+
+            return _mapper.Map<IEnumerable<Models.TaskModel>>(tasks);
+        }
+
         public async Task<int> CreateTaskAsync(Models.Create.CreateTaskModel createTaskModel)
         {
             var task = _mapper.Map<Data.Models.Task>(createTaskModel);
@@ -29,11 +36,10 @@ namespace ToDo.Business.Services
             return result.Entity.TaskId;
         }
 
-        public async Task<IEnumerable<Models.TaskModel>> GetTasksAsync()
+        public async Task DeleteTaskAsync(int taskId)
         {
-            var tasks = await _toDoContext.Tasks.ToListAsync();
-
-            return _mapper.Map<IEnumerable<Models.TaskModel>>(tasks);
-        }
+            await _toDoContext.Tasks.Where(x => x.TaskId == taskId)
+                                    .ExecuteDeleteAsync();
+        }  
     }
 }

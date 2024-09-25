@@ -23,9 +23,17 @@
                     <!--  ko if: tasks().length > 0 -->
                         <!-- ko foreach: tasks -->
                             <tr>
-                                <td data-bind="text: taskId"></td>
+                                <td data-bind="text: itemId"></td>
                                 <td data-bind="text: description"></td>
-                                <td></td>
+                                <td>
+                                    <div class="d-flex">
+                                        <button class="btn btn-primary me-2">Edit</button>
+                                        <button class="btn btn-danger"
+                                                data-bind="click: function(index, id) { $parent.deleteTask($index(), taskId, index, id) }">
+                                    Delete
+                                </button>
+                                    </div>
+                                </td>
                             </tr>
                         <!-- /ko -->
                     <!-- /ko -->

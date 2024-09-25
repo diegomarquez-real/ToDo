@@ -16,14 +16,6 @@ namespace ToDo.KnockoutJS.Controllers
             return View();
         }
 
-        [HttpGet("[controller]/[action]/{id?}")]
-        public IActionResult AddEditTask(int? id)
-        {
-            ViewData["Title"] = id.HasValue ? "Edit Task" : "Add Task";
-
-            return PartialView("_AddEditTask");
-        }
-
         [HttpGet]
         public async Task<JsonResult> GetAllAsync()
         {
@@ -32,12 +24,28 @@ namespace ToDo.KnockoutJS.Controllers
             return Json(taskModels);
         }
 
+        [HttpGet("[controller]/[action]/{id?}")]
+        public IActionResult AddEditTask(int? id)
+        {
+            ViewData["Title"] = id.HasValue ? "Edit Task" : "Add Task";
+
+            return PartialView("_AddEditTask");
+        }
+
         [HttpPost]
         public async Task<JsonResult> CreateAsync([FromBody] Business.Models.Create.CreateTaskModel createTaskModel)
         {
             var taskId = await _taskService.CreateTaskAsync(createTaskModel);
 
             return Json(taskId);
+        }
+
+        [HttpPost("[controller]/[action]/{id}")]
+        public async Task<JsonResult> DeleteAsync(int id)
+        {
+            await _taskService.DeleteTaskAsync(id);
+
+            return Json(true);
         }
     }
 }
