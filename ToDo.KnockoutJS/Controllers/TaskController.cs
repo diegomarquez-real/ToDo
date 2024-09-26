@@ -32,6 +32,12 @@ namespace ToDo.KnockoutJS.Controllers
             return PartialView("_AddEditTask");
         }
 
+        [HttpGet]
+        public IActionResult GetDeleteTaskModal()
+        {
+            return PartialView("_DeleteTask");
+        }
+
         [HttpPost]
         public async Task<JsonResult> CreateAsync([FromBody] Business.Models.Create.CreateTaskModel createTaskModel)
         {

@@ -7,19 +7,12 @@
             modalPlaceholder.find('#addedit-task-modal').modal('show');
         });
     };
-    self.deleteTask = function (index, taskId) {
-        $.ajax({
-            url: `/Task/Delete/${taskId}`,
-            type: 'POST',
-            beforeSend: function () {
-            },
-            success: function (response) {
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-            },
-            complete: function () {
-                self.tasks.splice(index, 1);
-            }
+    self.deleteTask = function (modalPlaceholder, taskId, index) {
+        $.get('/Task/GetDeleteTaskModal', function (data) {
+            modalPlaceholder.html(data);
+            modalPlaceholder.find('#delete-task-modal').modal('show');
+            deleteTaskVM.taskId(taskId);
+            deleteTaskVM.index(index);
         });
     }
 }
