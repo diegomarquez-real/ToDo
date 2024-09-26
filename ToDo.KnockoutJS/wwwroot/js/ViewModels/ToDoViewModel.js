@@ -1,13 +1,30 @@
-﻿var ToDoViewModel = {
-    tasks: ko.observableArray([]),
-    isEmpty: ko.observable(true),
-    addTask: function (modalPlaceholder) {
+﻿var ToDoViewModel = function () {
+    var self = this;
+    self.tasks = ko.observableArray([]);
+    self.addTask = function (modalPlaceholder) {
         $.get("/Task/AddEditTask", function (data) {
             modalPlaceholder.html(data);
             modalPlaceholder.find('#addedit-task-modal').modal('show');
         });
+    };
+    self.deleteTask = function (index, taskId) {
+        $.ajax({
+            url: `/Task/Delete/${taskId}`,
+            type: 'POST',
+            beforeSend: function () {
+            },
+            success: function (response) {
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            },
+            complete: function () {
+                self.tasks.splice(index, 1);
+            }
+        });
     }
-};
+}
+
+var toDoVM = new ToDoViewModel();
 
 $(function () {
     $.ajax({
@@ -16,30 +33,25 @@ $(function () {
         dataType: 'json',
         contentType: 'application/json',
         beforeSend: function () {
-            console.log('Sending request...');
         },
         success: function (response) {
             LoadToDos(response);
-            if (response.length > 0) {
-                ToDoViewModel.isEmpty(false);
-            }
-            ko.applyBindings(ToDoViewModel, $('#task-container')[0]);
+            ko.applyBindings(toDoVM, $('#task-container')[0]);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log('Error');
         },
         complete: function () {
-            console.log('Request completed.');
         }
     });
 
     function LoadToDos(items) {
         for (var i = 0; i < items.length; i++) {
             let item = {
+                itemId: i + 1,
                 taskId: items[i].taskId,
                 description: items[i].description
             };
-            ToDoViewModel.tasks.push(item);
+            toDoVM.tasks.push(item);
         }
     }
 });
