@@ -17,18 +17,8 @@ namespace ToDo.KnockoutJS.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetAllAsync()
+        public IActionResult GetAddEditTaskModal(int? id)
         {
-            var taskModels = await _taskService.GetTasksAsync();
-
-            return Json(taskModels);
-        }
-
-        [HttpGet("[controller]/[action]/{id?}")]
-        public IActionResult AddEditTask(int? id)
-        {
-            ViewData["Title"] = id.HasValue ? "Edit Task" : "Add Task";
-
             return PartialView("_AddEditTask");
         }
 
@@ -36,6 +26,14 @@ namespace ToDo.KnockoutJS.Controllers
         public IActionResult GetDeleteTaskModal()
         {
             return PartialView("_DeleteTask");
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetAllAsync()
+        {
+            var taskModels = await _taskService.GetTasksAsync();
+
+            return Json(taskModels);
         }
 
         [HttpPost]

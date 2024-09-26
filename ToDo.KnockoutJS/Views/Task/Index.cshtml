@@ -6,7 +6,7 @@
     <div class="card bg-dark">
         <div class="card-header">
             <button class="btn btn-primary float-end"
-                    data-bind="click: function(modalPlaceholder) { addTask($('#modal-placeholder'), modalPlaceholder) }">
+                    data-bind="click: function(modalPlaceholder, id) { addEditTask($('#modal-placeholder'), null, modalPlaceholder, id) }">
                 Add
             </button>
         </div>
@@ -53,5 +53,5 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/ViewModels/ToDoViewModel.js" type="text/javascript"></script>
+    <script src="~/js/ViewModels/ToDoViewModel.js" type="text/javascript" asp-append-version="true"></script>
 }

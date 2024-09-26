@@ -6,7 +6,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">@ViewData["Title"]</h5>
+                <h5 class="modal-title" data-bind="text: title"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form data-bind="submit: saveTask">
@@ -25,4 +25,4 @@
     </div>
 </div>
 
-<script src="~/js/ViewModels/AddEditTaskViewModel.js" type="text/javascript"></script>
+<script src="~/js/ViewModels/AddEditTaskViewModel.js" type="text/javascript" asp-append-version="true"></script>

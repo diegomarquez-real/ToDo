@@ -1,10 +1,11 @@
 ﻿var ToDoViewModel = function () {
     var self = this;
     self.tasks = ko.observableArray([]);
-    self.addTask = function (modalPlaceholder) {
-        $.get("/Task/AddEditTask", function (data) {
+    self.addEditTask = function (modalPlaceholder, taskId) {
+        $.get("/Task/GetAddEditTaskModal", function (data) {
             modalPlaceholder.html(data);
             modalPlaceholder.find('#addedit-task-modal').modal('show');
+            addEditTaskVM.taskId(taskId);
         });
     };
     self.deleteTask = function (modalPlaceholder, taskId, index) {
