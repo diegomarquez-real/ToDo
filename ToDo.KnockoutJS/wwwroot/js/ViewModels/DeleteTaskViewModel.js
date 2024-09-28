@@ -1,10 +1,10 @@
 ﻿var DeleteTaskViewModel = function () {
     var self = this;
-    self.taskId = ko.observable();
+    self.task = ko.observable();
     self.index = ko.observable();
     self.confirmDeleteTask = function() {
         $.ajax({
-            url: `/Task/Delete/${self.taskId()}`,
+            url: `/Task/Delete/${self.task().taskId}`,
             type: 'POST',
             beforeSend: function () {
             },

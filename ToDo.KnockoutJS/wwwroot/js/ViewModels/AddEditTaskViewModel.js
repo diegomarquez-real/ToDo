@@ -1,9 +1,9 @@
 ﻿var AddEditTaskViewModel = function () {
     var self = this;
-    self.taskId = ko.observable();
+    self.task = ko.observable();
     self.description = ko.observable(),
     self.title = ko.computed(function () {
-        return self.taskId() == null ? "Add Task" : "Edit Task";
+        return self.task() == null ? "Add Task" : "Edit Task";
     });
     self.saveTask = function () {
         var createTaskModelJSON = {

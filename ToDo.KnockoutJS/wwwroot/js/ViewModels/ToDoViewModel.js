@@ -1,18 +1,18 @@
 ﻿var ToDoViewModel = function () {
     var self = this;
     self.tasks = ko.observableArray([]);
-    self.addEditTask = function (modalPlaceholder, taskId) {
+    self.addEditTask = function (modalPlaceholder, task) {
         $.get("/Task/GetAddEditTaskModal", function (data) {
             modalPlaceholder.html(data);
             modalPlaceholder.find('#addedit-task-modal').modal('show');
-            addEditTaskVM.taskId(taskId);
+            addEditTaskVM.task(task);
         });
     };
-    self.deleteTask = function (modalPlaceholder, taskId, index) {
+    self.deleteTask = function (modalPlaceholder, task, index) {
         $.get('/Task/GetDeleteTaskModal', function (data) {
             modalPlaceholder.html(data);
             modalPlaceholder.find('#delete-task-modal').modal('show');
-            deleteTaskVM.taskId(taskId);
+            deleteTaskVM.task(task);
             deleteTaskVM.index(index);
         });
     }
