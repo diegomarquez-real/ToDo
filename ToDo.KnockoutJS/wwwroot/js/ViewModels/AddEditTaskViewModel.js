@@ -1,4 +1,4 @@
-﻿var AddEditTaskViewModel = function () {
+﻿function AddEditTaskViewModel () {
     var self = this;
     self.task = ko.observable();
     self.description = ko.observable(),

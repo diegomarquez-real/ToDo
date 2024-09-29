@@ -1,4 +1,4 @@
-﻿var DeleteTaskViewModel = function () {
+﻿function DeleteTaskViewModel () {
     var self = this;
     self.task = ko.observable();
     self.index = ko.observable();

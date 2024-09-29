@@ -1,4 +1,4 @@
-﻿var ToDoViewModel = function () {
+﻿function ToDoViewModel () {
     var self = this;
     self.tasks = ko.observableArray([]);
     self.addEditTask = function (modalPlaceholder, task) {
