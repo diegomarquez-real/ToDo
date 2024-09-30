@@ -1,28 +1,40 @@
-﻿function AddEditTaskViewModel () {
+﻿function AddEditTaskViewModel() {
     var self = this;
-    self.task = ko.observable();
     self.description = ko.observable(),
-    self.title = ko.computed(function () {
-        return self.task() == null ? "Add Task" : "Edit Task";
+    self.task = ko.observable();
+    self.title = ko.observable('Add Task');
+    self.url = '/Task/Create';
+    self.task.subscribe(function (newValue) {
+        if (newValue == null) {
+            return;
+        }
+        self.description(newValue['description']());
+        self.title('Edit Task');
+        self.url = `/Task/Update/${newValue['taskId']}`;
     });
     self.saveTask = function () {
-        var createTaskModelJSON = {
+        var model = {
             Description: this.description()
         };
 
         $.ajax({
-            url: '/Task/Create',
+            url: self.url,
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(createTaskModelJSON),
+            data: JSON.stringify(model),
             beforeSend: function () {
             },
             success: function (response) {
-                var item = {
-                    taskId: response,
-                    description: self.description
-                };
-                toDoVM.tasks.push(item);
+                if (self.task() == null) {
+                    var item = {
+                        itemIndex: toDoVM.tasks().length,
+                        taskId: response,
+                        description: ko.observable(self.description())
+                    };
+                    toDoVM.tasks.push(item);
+                } else {
+                    toDoVM.tasks()[self.task()['itemIndex']].description(self.description())
+                }
                 $('#modal-placeholder').find('.modal').modal('hide');
             },
             error: function (jqXHR, textStatus, errorThrown) {

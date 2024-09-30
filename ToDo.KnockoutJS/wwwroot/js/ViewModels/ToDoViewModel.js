@@ -41,9 +41,9 @@ $(function () {
     function LoadToDos(items) {
         for (var i = 0; i < items.length; i++) {
             let item = {
-                itemId: i + 1,
+                itemIndex: i,
                 taskId: items[i].taskId,
-                description: items[i].description
+                description: ko.observable(items[i].description) 
             };
             toDoVM.tasks.push(item);
         }

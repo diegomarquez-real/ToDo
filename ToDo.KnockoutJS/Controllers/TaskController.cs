@@ -45,6 +45,14 @@ namespace ToDo.KnockoutJS.Controllers
         }
 
         [HttpPost("[controller]/[action]/{id}")]
+        public async Task<JsonResult> UpdateAsync(int id, [FromBody] Business.Models.Update.UpdateTaskModel updateTaskModel)
+        {
+            await _taskService.UpdateTaskAsync(id, updateTaskModel);
+
+            return Json(true);
+        }
+
+        [HttpPost("[controller]/[action]/{id}")]
         public async Task<JsonResult> DeleteAsync(int id)
         {
             await _taskService.DeleteTaskAsync(id);

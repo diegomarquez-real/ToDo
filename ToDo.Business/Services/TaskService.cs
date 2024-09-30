@@ -36,10 +36,19 @@ namespace ToDo.Business.Services
             return result.Entity.TaskId;
         }
 
+        public async Task UpdateTaskAsync(int taskId, Models.Update.UpdateTaskModel updateTaskModel)
+        {
+            var task = await _toDoContext.Tasks.Where(x => x.TaskId == taskId).FirstAsync();
+            var dataModel = _mapper.Map(updateTaskModel, task);
+            _toDoContext.Tasks.Update(dataModel);
+            await _toDoContext.SaveChangesAsync();
+
+        }
+
         public async Task DeleteTaskAsync(int taskId)
         {
             await _toDoContext.Tasks.Where(x => x.TaskId == taskId)
                                     .ExecuteDeleteAsync();
-        }  
+        }
     }
 }
