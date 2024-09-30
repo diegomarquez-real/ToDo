@@ -1,0 +1,25 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="modal fade" id="delete-task-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Task</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form data-bind="submit: confirmDeleteTask">
+                <div class="modal-body">
+                    <h5>Are you sure you want to delete "<span data-bind="text: task().description"></span>"?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/ViewModels/DeleteTaskViewModel.js" type="text/javascript" asp-append-version="true"></script>

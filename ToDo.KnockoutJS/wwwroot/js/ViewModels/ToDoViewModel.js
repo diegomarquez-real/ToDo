@@ -1,25 +1,19 @@
-﻿var ToDoViewModel = function () {
+﻿function ToDoViewModel () {
     var self = this;
     self.tasks = ko.observableArray([]);
-    self.addTask = function (modalPlaceholder) {
-        $.get("/Task/AddEditTask", function (data) {
+    self.addEditTask = function (modalPlaceholder, task) {
+        $.get("/Task/GetAddEditTaskModal", function (data) {
             modalPlaceholder.html(data);
             modalPlaceholder.find('#addedit-task-modal').modal('show');
+            addEditTaskVM.task(task);
         });
     };
-    self.deleteTask = function (index, taskId) {
-        $.ajax({
-            url: `/Task/Delete/${taskId}`,
-            type: 'POST',
-            beforeSend: function () {
-            },
-            success: function (response) {
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-            },
-            complete: function () {
-                self.tasks.splice(index, 1);
-            }
+    self.deleteTask = function (modalPlaceholder, task, index) {
+        $.get('/Task/GetDeleteTaskModal', function (data) {
+            modalPlaceholder.html(data);
+            modalPlaceholder.find('#delete-task-modal').modal('show');
+            deleteTaskVM.task(task);
+            deleteTaskVM.index(index);
         });
     }
 }
@@ -47,9 +41,9 @@ $(function () {
     function LoadToDos(items) {
         for (var i = 0; i < items.length; i++) {
             let item = {
-                itemId: i + 1,
+                itemIndex: i,
                 taskId: items[i].taskId,
-                description: items[i].description
+                description: ko.observable(items[i].description) 
             };
             toDoVM.tasks.push(item);
         }

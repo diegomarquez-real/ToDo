@@ -12,8 +12,9 @@ namespace ToDo.Business.Mapping
         public TaskMappingProfile()
         {
             CreateMap<Data.Models.Task, Models.TaskModel>();
-            //CreateMap<List<Data.Models.Task>, List<Models.TaskModel>>();
             CreateMap<Models.Create.CreateTaskModel, Data.Models.Task>();
+            CreateMap<Models.Update.UpdateTaskModel, Data.Models.Task>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
         }
     }
 }
