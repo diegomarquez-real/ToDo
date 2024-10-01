@@ -11,11 +11,16 @@ namespace ToDo.Business
 {
     public static class BusinessLayerExtension
     {
-        public static void AddBusinessLayer(this IServiceCollection services, IConfiguration configuration)
+        public static void AddBusinessLayer(this IServiceCollection services, Action<Configuration> configuration)
         {
             services.AddScoped<Services.Abstractions.ITaskService, Services.TaskService>();
 
-            services.AddDataLayer(configuration);
+            var configurationOptions = new Configuration();
+            configuration.Invoke(configurationOptions);
+            services.AddDataLayer(c =>
+            {
+                c.SqlLiteConnectionString = configurationOptions.SqlLiteConnectionString;
+            });
         }
     }
 }
