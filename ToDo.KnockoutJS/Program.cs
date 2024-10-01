@@ -5,7 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(ToDo.Business.Mapping.TaskMappingProfile));
-builder.Services.AddBusinessLayer(builder.Configuration);
+builder.Services.AddBusinessLayer(c =>
+{
+    c.SqlLiteConnectionString =  $"Data Source={Path.Combine(Directory.GetParent(builder.Environment.ContentRootPath)!.GetDirectories("ToDo.Database").FirstOrDefault()!.FullName, builder.Configuration.GetConnectionString("SqlLiteConnection")!)}";
+});
 
 var app = builder.Build();
 

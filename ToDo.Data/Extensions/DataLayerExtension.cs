@@ -11,11 +11,13 @@ namespace ToDo.Data
 {
     public static class DataLayerExtension
     {
-        public static void AddDataLayer(this IServiceCollection services, IConfiguration configuration)
+        public static void AddDataLayer(this IServiceCollection services, Action<Configuration> configuration)
         {
+            var configurationOptions = new Configuration();
+            configuration.Invoke(configurationOptions);
             services.AddDbContext<ToDoContext>(options =>
             {
-                options.UseSqlite(configuration.GetConnectionString("SqlLiteConnection"));
+                options.UseSqlite(configurationOptions.SqlLiteConnectionString);
             });
         }
     }
